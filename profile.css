@@ -31,7 +31,7 @@
     box-shadow: 10px 10px 50px  rgba(0, 255, 195, 0.2) ;
 }
 .side-image{
-    background-image: url(./assets/image4.jpg);
+    background-image: url(./assets/demolap2.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -107,7 +107,7 @@
 
 }
 .button .btn:hover{
-    background: #27bd9f;
+    background: #1bc6a1;
 
 }
 .off{

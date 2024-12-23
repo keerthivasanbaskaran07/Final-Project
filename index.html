@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -90,7 +90,7 @@
                             </div>
 
                             <div class="form-floating  col-lg-12 d-grid">
-                                <button class="btn btn-brand" onclick="loginUser()">login</button>
+                                <button class="btn btn-brand" onclick="checkLogin()">login</button>
                             </div>
 
                         </form>
@@ -106,6 +106,25 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+
+        function checkLogin(){
+            let userName = document.getElementById('Username1').value;
+            let password = document.getElementById('Userpassword2').value;
+
+            var LapZoneUserApi = "https://retoolapi.dev/Cf1WII/LapZoneUsers";
+            let apiFilter = "?userName=" + userName + "&password=" + password;
+
+            fetch(LapZoneUserApi+apiFilter)
+            .then(response => {
+                    return response.json();
+            } )
+            .then(responseData => {
+                    sessionStorage.setItem('userName', userName);
+                    sessionStorage.setItem('userId', responseData[0].id);
+                    alert('Successfully Logged in');
+                    window.location.href = "./home.html";
+            })
+        }
     </script>
 
 </body>

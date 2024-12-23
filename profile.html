@@ -1,66 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./profile.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="./Script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./profile.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="./Script.js"></script>
 </head>
-<body>
-    <div class="wrapper">
-        <div class="container main">
-            <div class="row">
-                <div class="col-md-6 side-image"> 
-                    <h2 class="lap" data-aos="fade-down"data-aos-delay="500" data-aos-duration="1000">Welcome Back..</h2>
-                    <p class="text"></p>
 
-                </div>
-                <div class="col-md-6 right"data-aos="fade-left"data-aos-delay="300" data-aos-duration="1000">
-                    <div class="input-box">
-                        <h2>Profile</h2>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="Name" placeholder="Enter Your Name">
-                            <label for="floatingInput">UserName</label>
-                          </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="Name" placeholder="Enter Your Name">
-                            <label for="floatingInput">Name</label>
-                          </div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="Email" placeholder="Enter Your Email">
-                            <label for="floatingInput"> Email</label>
-                          </div>
-                          <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="number" placeholder="Password">
-                            <label for="floatingNumber">Mobile</label>
-                          </div>
-                          <div class="form-floating">
-                            <textarea id="address" name="address" class="form-control" placeholder="address"></textarea>
-                            <label for="floatingaddress">Address</label>
-                          </div>
-                          <div class="button">
-                            <button type="button" class="btn btn-primary">Update</button>
-                            <button type="reset" class="btn btn-secondary">Cancel</button>
-                          </div>
-                          <div class="col off"><a href="./deactivateAcc.html"> Click here to Deactivate Account</a></div>
+<body onload="checkSession()">
+  <div class="wrapper">
+    <div class="container main">
+      <div class="row">
+        <div class="col-md-6 side-image">
+          <h2 class="lap" data-aos="fade-down" data-aos-delay="500" data-aos-duration="1000">Welcome Back..</h2>
+          <p class="text"></p>
 
-
-                    </div>
-
-
-                </div>
-            </div>
         </div>
-    </div>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-      </script>
-    
+        <div class="col-md-6 right" data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000">
+          <div class="input-box">
+            <h2>Profile</h2>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="userName" placeholder="Enter Your Name" disabled>
+              <label for="floatingInput">UserName</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="accName" placeholder="Enter Your Name">
+              <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
+              <label for="floatingInput"> Email</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control" id="mobile" placeholder="Password">
+              <label for="floatingNumber">Mobile</label>
+            </div>
+            <div class="form-floating">
+              <textarea id="address" name="address" class="form-control" placeholder="address"></textarea>
+              <label for="floatingaddress">Address</label>
+            </div>
+            <div class="button">
+              <button type="button" class="btn btn-primary"  onclick="updateProfile()">Update</button>
+              <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+            <div class="col off"><a href="./deactivateAcc.html"> Click here to Deactivate Account</a></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+
+    var LapZoneUserApi = "https://retoolapi.dev/Cf1WII/LapZoneUsers";
+    function getUserProfile() {
+
+      let userId = sessionStorage.getItem('userId') || '';
+
+      fetch(LapZoneUserApi + "/" + userId)
+        .then(response => response.json())
+        .then(responseData => {
+          document.getElementById('userName').value = responseData.userName || '';
+          document.getElementById('accName').value = responseData.accName || '';
+          document.getElementById('email').value = responseData.email || '';
+          document.getElementById('mobile').value = responseData.mobile || '';
+          document.getElementById('address').value = responseData.address || '';
+        })
+
+    }
+    getUserProfile();
+
+    function updateProfile(){
+            let userName = document.getElementById('userName').value;            
+            let accName = document.getElementById('accName').value;            
+            let email = document.getElementById('email').value;            
+            let mob = document.getElementById('mobile').value;            
+            let address = document.getElementById('address').value;
+            let userId = sessionStorage.getItem('userId') || '';
+            
+
+            let requestBody = {
+                userName : userName,
+                accName : accName,
+                email : email,
+                mobile : mobile,
+                address : address
+            }
+
+            let request = {
+                method : 'PATCH',
+                headers : { 'Content-Type' : 'application/json'},
+                body : JSON.stringify(requestBody)
+            }
+
+            fetch(LapZoneUserApi+"/"+userId, request)
+            .then(response => {
+                if(response.ok){
+                    alert('Profile updated Successfully...');
+                }else{
+                    alert('Error Occurred .. Please try again later...');
+                }
+            })
+        }
+
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

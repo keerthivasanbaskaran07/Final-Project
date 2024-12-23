@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./home.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.4.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-white sticky-top">
@@ -65,8 +66,12 @@
                 <a class="nav-link" href="#help">help</a>
               </li>
              </ul>
-            <a href="#" class="btn btn-brand ms-lg-3">Log In</a>
-            <a href="#" class="btn btn-brand ms-lg-3">Log Out</a>
+             <!-- <form class="d-flex">
+              <span id="lgiBtn"><a href="./login.html" class="btn btn-brand">Login</a></span>                 
+              <span id="lgoBtn"><button class="btn btn-brand" type="button" onclick="logout()">Logout</button></span>
+          </form> -->
+            <span id="lgiBtn"><a href="#" class="btn btn-brand ms-lg-3">Log In</a></span>
+            <span id="lgoBtn"><button class="btn btn-brand ms-lg-3" type="button" onclick="logout()">Log Out</button></span>
           </div>
         </div>
       </nav>
@@ -76,9 +81,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1 class="text-uppercase text-white fw-bold display-1">Welcome to Lapzone</h1>
-                    <h5  class=" text-white mt-3 mb-4">HERE YOU WILL FIND THE BEST LAPTOPS FO SALE.</h5>
-                    <form class="d-flex col-lg-6 col-sm-6" id="SeaBtn">
+                    <h1 class="text-uppercase text-white fw-bold display-1" data-aos="fade-left">Welcome to Lapzone</h1>
+                    <h5  class=" text-white mt-3 mb-4" data-aos="fade-right">HERE YOU WILL FIND THE BEST LAPTOPS FO SALE.</h5>
+                    <form class="d-flex col-lg-6 col-sm-6" id="SeaBtn" data-aos="fade-up"  data-aos-delay="50">
                       <input class="form-control me-2 text-center" id="SeaBtn2" type="search" placeholder="Search" aria-label="Search">
                       <button class="btn btn-brand" type="submit">Search</button>
                     </form>
@@ -92,7 +97,7 @@
       <section id="Laptops" class="section-padding">
         <div class="container">
           <div class="row">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="50">
               <div class="section-title">
                 <h1 class=" display-3 text-uppercase fw-bold ">Laptop</h1>
                 <div class="line"></div>
@@ -101,10 +106,10 @@
             </div>
           </div>
           <div class="row justify-content-between align-items-center">
-            <div class="col-lg-6">
+            <div class="col-lg-6" data-aos="fade-down" data-aos-delay="50">
               <img src="./assets/images/image3.jpg" alt="">
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-5" data-aos="fade-down" data-aos-delay="150">
               <h2>About Laptops</h2>
               <p class="mt-3 mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, facere!</p>
               <div class="d-flex pt-4 mb-3">
@@ -149,11 +154,11 @@
 
       </section>
       
-<!--offers-->
+<!--Components-->
       <section id="Offers" class="section-padding border-top"> 
         <div class="container">
           <div class="row">
-            <div class="col-12 text-center"> 
+            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150"> 
               <div class="section-title">
                 <h1 class=" display-3 text-uppercase fw-bold">components</h1>
                 <div class="line"></div>
@@ -162,7 +167,7 @@
             </div>
           </div>
           <div class="row g-4 text-center">
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
               <div class="service theme-shadow p-lg-5 p-4">
                 <div class="iconbox">
                   <i class="ri-cpu-line"></i>
@@ -172,7 +177,7 @@
                 <p>Coding, programming and gaming :	Intel Core i5, Intel Core i7, AMD Ryzen 5 and AMD Ryzen 7</p>
               </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
               <div class="service theme-shadow p-lg-5 p-4">
                 <div class="iconbox">
                   <i class="ri-ram-2-fill"></i>
@@ -182,7 +187,7 @@
                 <p>For more intensive tasks such as gaming or vid.</p>
               </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
               <div class="service theme-shadow p-lg-5 p-4">
                 <div class="iconbox">
                   <i class="ri-hard-drive-fill"></i>
@@ -192,7 +197,7 @@
                 <p>Significantly faster, with speeds ranging from 500 MB/s to 3,500 MB/s or more eficiently to work.</p>
               </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
               <div class="service theme-shadow p-lg-5 p-4">
                 <div class="iconbox">
                   <i class="ri-macbook-fill"></i>
@@ -203,7 +208,7 @@
                 
               </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
               <div class="service theme-shadow p-lg-5 p-4">
                 <div class="iconbox">
                   <i class="ri-keyboard-fill"></i>
@@ -213,13 +218,13 @@
                 <p>A traditional style keyboard has keys placed close to one another</p>
               </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
               <div class="service theme-shadow p-lg-5 p-4">
                 <div class="iconbox">
                   <i class="ri-battery-2-charge-fill"></i>
                 </div>
                 <h5 class="mt-4 mb-3">BATTERY</h5>
-                <p>Lithium-ion (LiON) and Lithium-Polymer (Li-Poly) batteries are considered the best choices due to their high energy density</p>
+                <p>Lithium-ion (LiON) and Lithium-Polymer (Li-Poly) batteries are considered the best choicesto high energy density</p>
                 <p>lightweight, and low self-discharge rate.</p>
               </div>
             </div>
@@ -364,7 +369,7 @@
             </div>
         </div>
     </section>
-    <!-- TEAM -->
+    <!-- Brands -->
     <section id="team" class="section-padding">
       <div class="container">
           <div class="row">
@@ -449,7 +454,7 @@
     <section class="section-padding bg-light" id="contact">
       <div class="container">
         <div class="row">
-          <div class="col-12 text-center">
+          <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150">
             <div class="section-title">
               <h1 class="display-4 text-white fw-bold">Gete in touch</h1>
               <div class="line bg-white"></div>
@@ -458,7 +463,7 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" data-aos="fade-down" data-aos-delay="250">
           <div class="col-lg-8">
             <form action="#" class="row g-3 p-lg-5 p-4 bg-white theme-shadow">
               <div class="form-floating col-lg-6">
@@ -556,5 +561,39 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+     
+AOS.init({
+  
+  
+
+  // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+  offset: 120, // offset (in px) from the original trigger point
+  delay: 0, // values from 0 to 3000, with step 50ms
+  duration: 900, // values from 0 to 3000, with step 50ms
+  easing: 'ease', // default easing for AOS animations
+  once: false, // whether animation should happen only once - while scrolling down
+  mirror: false, // whether elements should animate out while scrolling past them
+  anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+});
+
+function isUserLoggedIn(){
+        let userName = sessionStorage.getItem('userName') || '';
+        if(userName == ''){
+          document.getElementById('lgiBtn').style.display = 'block';
+          document.getElementById('lgoBtn').style.display = 'none';
+        }else{
+          document.getElementById('lgiBtn').style.display = 'none';
+          document.getElementById('lgoBtn').style.display = 'block';
+        }
+       }
+       isUserLoggedIn();
+
+      
+
+
+    </script>
 </body>
 </html>
