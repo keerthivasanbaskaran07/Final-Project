@@ -64,6 +64,14 @@ img {
 .navbar-nav .nav-link:hover{
     color: var(--c-brand) !important ;
 }
+.profile{
+    font-weight: 500;
+    color: var(--c-dark) !important;
+    
+}
+.profile:hover{
+    color: var(--c-brand) !important ;
+}
 
 /*btn*/
 
