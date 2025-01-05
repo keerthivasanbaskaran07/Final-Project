@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="productDetails.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+
+<body>
+    <section id="prodetails" class="Section-p1">
+        <div id="productRow"></div>
+        <!-- <div class="single-pro-image">
+            <img src="./assets/azusrog.jpg" width="100%" id="mainimg" alt="">
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="./assets/images/dell.webp" width="150px" height="100px" id="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="./assets/images/hp.jpeg" width="150px" height="100px" id="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="./assets/images/omenlap1.webp" width="150px" height="100px" id="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="./assets/images/lenovo.jpg" width="150px" height="100px" id="small-img" alt="">
+                </div>
+            </div>
+
+        </div>
+        <div class="single-pro-details">
+            <h2>ASUSROG-X8</h2>
+            <h4>Gaming laptop</h4>
+            <h1>$149.00</h1>
+            <button type="buttonA" class="btn btn-warning">Add to Cart</button>
+            <h4>productDetails</h4>
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repellat itaque enim quo
+                laudantium quasi inventore aut magnam pariatur maxime ea vero labore asperiores quas dolor saepe eveniet
+                dicta quaerat. Nam eveniet dignissimos illum, provident placeat sed modi, et deleniti obcaecati quisquam
+                iusto vel, nulla ab dolor voluptates necessitatibus cumque?</span>
+        </div> -->
+
+    </section>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+
+        AOS.init({
+
+            // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+            offset: 120, // offset (in px) from the original trigger point
+            delay: 0, // values from 0 to 3000, with step 50ms
+            duration: 900, // values from 0 to 3000, with step 50ms
+            easing: 'ease', // default easing for AOS animations
+            once: false, // whether animation should happen only once - while scrolling down
+            mirror: false, // whether elements should animate out while scrolling past them
+            anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+        });
+
+
+        var productApi = "https://retoolapi.dev/NGZFOH/lapZoneProducts";
+        var productDetailApi = "https://retoolapi.dev/K0uzwV/shoppyProductDetail";
+        var cartApi = "https://retoolapi.dev/zRvFVz/lapZoneCart";
+        var product = {};
+
+        function getProduct() {
+
+            let pId = sessionStorage.getItem('productId') || '';
+            fetch(productApi + '/' + pId)
+                .then(response => response.json())
+                .then(responseData => {
+                    product = responseData;
+                    generateProductRow(product);
+                })
+        }
+        getProduct();
+
+        function generateProductRow(product) {
+
+            let result = "";
+
+            result += '<div class="single-pro-image ">'+
+            '<img src="./assets/'+ product.pImg+'.png" width="100%" id="mainimg" alt="">'+
+            '<div class="small-img-group">'+
+                '<div class="small-img-col">'+
+                    '<img src="./assets/images/dell.webp" width="150px" height="100px" id="small-img" alt="">'+
+                '</div>'+
+                '<div class="small-img-col">'+
+                    '<img src="./assets/images/hp.jpeg" width="150px" height="100px" id="small-img" alt="">'+
+                '</div>'+
+                '<div class="small-img-col">'+
+                    '<img src="./assets/images/omenlap1.webp" width="150px" height="100px" id="small-img" alt="">'+
+                    '</div>'+
+                '<div class="small-img-col">'+
+                    '<img src="./assets/images/lenovo.jpg" width="150px" height="100px" id="small-img" alt="">'+
+                    '</div>'+
+                    '</div>'+
+
+        '</div>'+
+        '<div class="single-pro-details ">'+
+            '<h2>'+product.pName+'</h2>'+
+            '<h4>Gaming laptop</h4>'+
+            '<h1>'+product.pPrice+'</h1>'+
+            '<button type="buttonA" class="btn btn-warning" onclick="addToCart()">Add to Cart</button>'+
+            '<h4>productDetails</h4>'+
+            '<span>'+
+                product.pdesc
+                '</span>'+
+        '</div>';
+            document.getElementById('productRow').innerHTML = result;
+        }
+
+        function checkSession() {
+            let userId = sessionStorage.getItem('userId') || '';
+            if (userId == '') {
+                alert('Please do login before adding to Cart...');
+                window.location.href = "./login.html";
+            }
+        }
+
+        function addToCart() {
+            checkSession();
+            let userId = sessionStorage.getItem('userId') || '';
+            let requestBody = {
+                pId: product.pId,
+                pName: product.pName,
+                pPrice: product.pPrice,
+                pCount: 1,
+                user: userId,
+                pImg: product.pImg
+            }
+
+            let request = {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            }
+
+            fetch(cartApi, request)
+                .then(response => {
+                    if (response.ok) {
+                        alert("Product Addess into Cart successfully...");
+                    } else {
+                        alert('Encountered an issue , please try again later..');
+                    }
+                })
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

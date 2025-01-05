@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Shopy Cart Screen</h2>
+        <div class="row mt-4">
+            <div class="col">Product Img</div>
+            <div class="col">Product Name</div>
+            <div class="col"> Price</div>
+            <div class="col"> Count </div>
+            <div class="col"> Total</div>
+        </div>
+        <div id="cartRows"></div>
+        <div class="row mt-4">
+            <div class="col"> <img src="./assets/images/azusrog.jpg"/></div>
+            <div class="col"> Perfume</div>
+            <div class="col"> 500 </div>
+            <div class="col"> 
+                <div class="countBoxOuter">
+                    <button type="button" class="btn btn-warning"> - </button> 
+                    <input type="text" id="p1" name="p1" class="form-control countBox">
+                    <button type="button" class="btn btn-warning"> + </button> 
+                </div>                
+            </div>
+            <div class="col"> 500</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">Grand Total</div>
+            <div class="col" id="grandTotal" name="grandTotal">0</div>
+        </div>
+        <div class="row mt-4">
+            <button type="button" class="btn btn-warning">Proceed to Checkout</button>
+        </div>
+    </div>
+    <!-- <script>
+        var userId = "";
+        var cartApi = "https://retoolapi.dev/20HxBu/shoppyCart";
+        var cartData = [];
+
+        function checkSession(){
+            userId = sessionStorage.getItem('userId') || '';
+            if(userId == ''){
+                alert('Please do login to view the cart details...');
+                window.location.href = './login.html';
+            }
+        }
+        function getCartDetails(){
+            checkSession();
+            let queryFilter = "?user="+ userId;
+            fetch(cartApi+queryFilter)
+            .then(response=> response.json())
+            .then(responseData => {
+                cartData = responseData;
+                generateCartRows();
+            })
+        }
+        getCartDetails();
+
+        function generateCartRows(){
+            let result = "";
+            let grandTotal = 0;
+
+            for(let record of cartData){
+                let total = record.pPrice * record.pCount;
+                grandTotal += total;
+                result += '<div class="row mt-4">'+
+                            '<div class="col"> <img src="./assets/images/products/'+ record.pImg +'.png"/></div>'+
+                            '<div class="col">'+ record.pName +'</div>'+
+                            '<div class="col" id="pPrice'+record.id+'" name="pPrice'+record.id+'">' + record.pPrice + ' </div>' +
+                            '<div class="col">'+
+                                '<div class="countBoxOuter">'+
+                                    '<button type="button" class="btn btn-warning" onclick="decreCount('+ record.id+')"> - </button>'+
+                                    '<span class="mx-2"><input type="text" id="pCount'+ record.id+'" name="pCount'+record.id +'" class="form-control countBox" value='+ record.pCount+' readonly></span>'+
+                                    '<button type="button" class="btn btn-warning" onclick="increCount('+ record.id+')"> + </button>'+
+                                '</div>'+              
+                            '</div>'+
+                            '<div class="col" id="pTotal'+ record.id +'">'+ total +'</div>'+
+                           '</div>';
+            }            
+
+            console.log(result);
+            document.getElementById('cartRows').innerHTML = result;
+            document.getElementById('grandTotal').innerHTML = grandTotal;
+            
+            
+        }
+
+        function increCount(recordId){
+           let currVal = Number(document.getElementById('pCount'+recordId).value);
+           currVal++;
+           document.getElementById('pCount'+recordId).value = currVal;
+           calcRecordTotal(recordId);
+           calcGrandTotal();
+        }
+        function decreCount(recordId){
+           let currVal = Number(document.getElementById('pCount'+recordId).value);
+           currVal--;
+           if(currVal == 0)
+            alert("Atleast one product should be available in cart...");
+           else
+            document.getElementById('pCount'+recordId).value = currVal;
+            calcRecordTotal(recordId);
+            calcGrandTotal();
+        }
+
+        function calcRecordTotal(recordId){
+            let pPrice = Number(document.getElementById('pPrice'+recordId).innerHTML);
+            let pCount = Number(document.getElementById('pCount'+recordId).value);
+            let result = pPrice * pCount;
+            console.log(document.getElementById('pPrice'+recordId).innerHTML);
+            console.log(pPrice, pCount, result);
+            document.getElementById('pTotal'+recordId).innerHTML = result;
+        }
+
+        function calcGrandTotal(){
+            let grandTotal = 0;
+            for(let record of cartData){
+                grandTotal += Number(document.getElementById('pTotal'+record.id).innerHTML);
+            }
+            document.getElementById('grandTotal').innerHTML = grandTotal;
+        }
+
+    </script> -->
+    <style>
+        img{
+            width:200px;
+            height: 150px;
+        }
+        .countBox{
+            width:50px;
+        }
+        .countBoxOuter{
+            width: 120px;
+            display:flex;
+            flex:auto;
+        }
+    </style>
+</body>
+</html>

@@ -18,7 +18,8 @@
          </h2>
       </div>
       <!--cards-->
-      <div class="row cards" data-aos="fade-down" data-aos-delay="150">
+      <div id="cardRows"></div>
+      <!-- <div class="row cards" data-aos="fade-down" data-aos-delay="150">
          <div class="card" style="width: 18rem;">
             <img src="./assets/azusrog-Photoroom.png" class="card-img-top" alt="...">
             <div class="card-body">
@@ -35,11 +36,8 @@
             <img src="./assets/azusrog-Photoroom.png" class="card-img-top" alt="...">
             <div class="card-body">
                <h5 class="card-title">ASUSROG-X8</h5>
-               <p class="card-text">The Best Gaming Laptops Ever
-                  </p>
-                <button type="button" class="btn btn-primary" >
-                     VIEW MORE
-                   </button>
+               <p class="card-text">The Best Gaming Laptops Ever</p>
+                <button type="button" class="btn btn-primary">VIEW MORE</button>
             </div>
          </div>
 
@@ -56,7 +54,7 @@
          </div>
 
 
-      </div>
+      </div> -->
       <div class="row cards"  data-aos="fade-down" data-aos-delay="200">
          <div class="card" style="width: 18rem;">
             <img src="./assets/azusrog-Photoroom.png" class="card-img-top" alt="...">
@@ -191,6 +189,53 @@ AOS.init({
   anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
 
 });
+
+var products = [];
+function gotoDetailProduct(pId){
+        sessionStorage.setItem('productId', pId);
+        window.location.href = "./productDetails.html";
+       }
+       getCardData();
+       function getCardData(){
+        let productApi = "https://retoolapi.dev/NGZFOH/lapZoneProducts";
+
+        fetch(productApi)
+        .then(response => response.json())
+        .then(responseData => {
+          products = responseData;
+          generateCard(products);
+        });
+       }
+
+       function generateCard(){
+        let result = "";
+
+        for(let idx=0; idx < 3; idx++){
+          if(idx==0 || idx==3)
+            result += '<div class="row cards" data-aos="fade-down" data-aos-delay="150">';
+          
+          result += '<div class="card" style="width: 18rem;">'+
+            '<img src="./assets/'+products[idx].pImg+'.png" class="card-img-top" alt="...">' +
+              '<div class="card-body">' +
+              '<h5 class="card-title">'+products[idx].pName+'</h5>'+
+              '<p class="card-text">The Best Gaming Laptops Ever</p>'+
+                '<button type="button" class="btn btn-primary" onclick="gotoDetailProduct('+products[idx].id+')">VIEW MORE</button>'+
+              '</div>'+
+            '</div>';
+
+          if(idx==3 || idx==7)
+              result += '</div>';
+
+        }
+console.log(result);
+        document.getElementById('cardRows').innerHTML = result;
+       }
+
+
+
+
+
+
    </script>
 
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
