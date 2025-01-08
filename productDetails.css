@@ -54,9 +54,14 @@ body {
 #prodetails .single-pro-details button {
     background-color: #00abf0;
     color: #fff;
-    border-radius: 0;
+    border-radius: 5px;
     transition: 0.3s;
     border: none;
+}
+
+.btn-one{
+    margin-left: 20px;
+    
 }
 #prodetails .single-pro-details span{
     line-height: 25px;

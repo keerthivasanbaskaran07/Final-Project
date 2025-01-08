@@ -211,7 +211,7 @@ function gotoDetailProduct(pId){
         let result = "";
 
         for(let idx=0; idx < 3; idx++){
-          if(idx==0 || idx==3)
+          if(idx==0 || idx==3 || idx==6)
             result += '<div class="row cards" data-aos="fade-down" data-aos-delay="150">';
           
           result += '<div class="card" style="width: 18rem;">'+
@@ -223,7 +223,7 @@ function gotoDetailProduct(pId){
               '</div>'+
             '</div>';
 
-          if(idx==3 || idx==7)
+          if(idx==2 || idx==5 || idx==8)
               result += '</div>';
 
         }

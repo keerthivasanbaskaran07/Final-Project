@@ -47,7 +47,7 @@
               <button type="button" class="btn btn-primary"  onclick="updateProfile()">Update</button>
               <button type="reset" class="btn btn-secondary">Cancel</button>
             </div>
-            <div class="col off"><a href="./deactivateAcc.html"> Click here to Deactivate Account</a></div>
+            <div class="col off"><a href="#" onclick=" deactivateAcc()"> Click here to Deactivate Account</a></div>
 
 
           </div>
@@ -112,6 +112,36 @@
                 }
             })
         }
+
+        function deactivateAcc(){
+          let userId = sessionStorage.getItem('userId') || '';
+          let requestBody = {
+                userName : userName,
+                accName : accName,
+                email : email,
+                mobile : mobile,
+                address : address
+            }
+
+            let request = {
+                method : 'DELETE',
+                headers : { 'Content-Type' : 'application/json'},
+                body : JSON.stringify(requestBody)
+            }
+
+            fetch(LapZoneUserApi+"/"+userId, request)
+            .then(response => {
+                if(response.ok){
+                    alert('Profile deleted Successfully...');
+                    window.location.href = "./index.html";
+                }else{
+                    alert('Error Occurred .. Please try again later...');
+                }
+            })
+
+        }
+        
+        
 
   </script>
 

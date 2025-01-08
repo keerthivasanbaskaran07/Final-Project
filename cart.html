@@ -4,22 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="cart.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha284-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"rel="stylesheet"/>
 </head>
-<body>
-    <div class="container mt-4">
-        <h2>Shopy Cart Screen</h2>
-        <div class="row mt-4">
+<body id="crt">
+    <div class="container">
+        <h2>LapZoneCart</h2>
+        <div class="row mt-4 " id="head">
             <div class="col">Product Img</div>
             <div class="col">Product Name</div>
             <div class="col"> Price</div>
             <div class="col"> Count </div>
             <div class="col"> Total</div>
+            <div class="col"></div>
         </div>
         <div id="cartRows"></div>
-        <div class="row mt-4">
-            <div class="col"> <img src="./assets/images/azusrog.jpg"/></div>
+        <!-- <div class="row mt-4" id="main">
+            <div class="col"> <img src='./assets/azusrog-Photoroom.png'/></div>
             <div class="col"> Perfume</div>
             <div class="col"> 500 </div>
             <div class="col"> 
@@ -29,29 +32,34 @@
                     <button type="button" class="btn btn-warning"> + </button> 
                 </div>                
             </div>
-            <div class="col"> 500</div>
-        </div>
-        <div class="row mt-4">
+            <div class="col display-6"> 500</div>
+            <div class="col "><button class="btn btn-brand"><i class="ri-delete-bin-6-fill ri-1x"></i></button></div>
+            
+        </div> -->
+        <div class="row mt-4 ">
             <div class="col"></div>
             <div class="col"></div>
             <div class="col"></div>
             <div class="col">Grand Total</div>
             <div class="col" id="grandTotal" name="grandTotal">0</div>
         </div>
-        <div class="row mt-4">
-            <button type="button" class="btn btn-warning">Proceed to Checkout</button>
+        <div class="row mt-4 procced">
+            <div class="col-md-3 offset-md-7">
+                <button type="button" class="btn btn-warning">Proceed to Checkout</button>
+            </div>
+            
         </div>
     </div>
-    <!-- <script>
+    <script>
         var userId = "";
-        var cartApi = "https://retoolapi.dev/20HxBu/shoppyCart";
+        var cartApi = "https://retoolapi.dev/zRvFVz/lapZoneCart";
         var cartData = [];
 
         function checkSession(){
             userId = sessionStorage.getItem('userId') || '';
             if(userId == ''){
                 alert('Please do login to view the cart details...');
-                window.location.href = './login.html';
+                window.location.href = './index.html';
             }
         }
         function getCartDetails(){
@@ -73,8 +81,8 @@
             for(let record of cartData){
                 let total = record.pPrice * record.pCount;
                 grandTotal += total;
-                result += '<div class="row mt-4">'+
-                            '<div class="col"> <img src="./assets/images/products/'+ record.pImg +'.png"/></div>'+
+                result += '<div class="row mt-4" id="main">'+
+                            '<div class="col"> <img src="./assets/'+ record.pImg +'.png"/></div>'+
                             '<div class="col">'+ record.pName +'</div>'+
                             '<div class="col" id="pPrice'+record.id+'" name="pPrice'+record.id+'">' + record.pPrice + ' </div>' +
                             '<div class="col">'+
@@ -84,11 +92,12 @@
                                     '<button type="button" class="btn btn-warning" onclick="increCount('+ record.id+')"> + </button>'+
                                 '</div>'+              
                             '</div>'+
-                            '<div class="col" id="pTotal'+ record.id +'">'+ total +'</div>'+
+                            '<div class="col display-6" id="pTotal'+ record.id +'">'+ total +'</div>'+
+                            '<div class="col"><button class="btn btn-brand" id="btn-brand" onclick="removeToCart('+ record.id+')"><i class="ri-delete-bin-6-fill ri-1x"></i></button></div>'+
                            '</div>';
             }            
 
-            console.log(result);
+            // console.log(result);
             document.getElementById('cartRows').innerHTML = result;
             document.getElementById('grandTotal').innerHTML = grandTotal;
             
@@ -130,20 +139,46 @@
             document.getElementById('grandTotal').innerHTML = grandTotal;
         }
 
-    </script> -->
-    <style>
-        img{
-            width:200px;
-            height: 150px;
+        function removeToCart(recordId) {
+            checkSession();
+            let userId = sessionStorage.getItem('userId') || '';
+            let requestBody = {
+                
+                pCount: 1,
+                user: userId,
+                pImg: cartData.pImg
+            }
+
+            let request = {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            }
+
+            fetch(cartApi+"/"+recordId, request)
+                .then(response => {
+                    if (response.ok) {
+                        alert("Product deleted into Cart successfully...");
+                        getCartDetails();
+                    } else {
+                        alert('Encountered an issue , please try again later..');
+                    }
+                    
+                })
+                
+
         }
-        .countBox{
-            width:50px;
-        }
-        .countBoxOuter{
-            width: 120px;
-            display:flex;
-            flex:auto;
-        }
-    </style>
+        
+        
+
+        
+
+        
+
+
+        
+
+    </script>
+    
 </body>
 </html>
